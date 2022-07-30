@@ -4,5 +4,5 @@ CREATE TABLE attempt_scores (
     attempts_id INTEGER REFERENCES attempts(id),
     questions_and_answer INTEGER REFERENCES questionsAndAnswer(id),
     user_guess TEXT,
-    correct BOOLEAN NOT NULL DEFAULT FALSE 
-)
+    correct BOOLEAN NOT NULL DEFAULT FALSE
+);
