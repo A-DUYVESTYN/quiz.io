@@ -1,0 +1,9 @@
+GET quiz_new
+POST quiz_new
+GET quiz_show       ***\quiz\:id***
+POST quiz_show
+GET quiz_index      ***homepage****
+GET login
+POST login
+GET register
+POST register
