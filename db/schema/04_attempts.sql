@@ -5,5 +5,4 @@ CREATE TABLE attempts (
     quiz_id INTEGER REFERENCES quizzes(id),
     url VARCHAR(255),
     date_attempted TIMESTAMP,
-    score INTEGER
-);
+   );
