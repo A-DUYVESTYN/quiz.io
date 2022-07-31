@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
+  <title>Quizzo</title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
@@ -19,12 +19,32 @@
   integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
   crossorigin="anonymous"
 />
-  <%- include('partials/_header') %>
 
 </head>
 
 <body>
-  <h1>Have fun! 🥔</h1>
+  <main style="margin: 1em;">
+    <h3>Public Quizes</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Quiz Name</th>
+          <th scope="col">Previous Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let quizes = [{name: 'Georraphy quiz', score: 4}, {name: 'Movies quiz', score: 5}] %>
+        <% for (let quiz of quizes) { %>
+          <tr>
+            <td><form method="GET" action="urls/<%= id %>">
+              <button type="submit" class="btn btn-outline-primary"><%= quiz.name %></button>
+            </form></td>
+            <td> Most recent score: <%= quiz.score %></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </main>
 </body>
 
 </html>
