@@ -1,7 +1,7 @@
 /*
  * All routes for showing a quiz are defined here
- * Since this file is loaded in server.js into api/quiz_new,
- *   these routes are mounted onto /quiz_new
+ * Since this file is loaded in server.js into api/quiz_show,
+ *   these routes are mounted onto /quiz_show
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
 
@@ -9,21 +9,24 @@ const express = require('express');
 const router  = express.Router();
 
 module.exports = (db) => {
-  router.get("/quiz_show/:quiz_url", (req, res) => {
+  router.get("/:id", (req, res) => {
 
-    console.log(req.params.quiz_url) // check the url is received
+    console.log(req.params.id) // check the url received
 
-    //TO DO: add conditional statement to check if user is logged in
-    // just use 8u8u8u as the url for now, this should be quiz 1 'BEST BUGS' lol
+    // just use 8u8u8u as the url for now, this should reference quiz 1 'BEST BUGS'
+
     db.query(`
-    SELECT user_id, title, public, url, quiz_id, question, answer
+    SELECT
+    name, user_id, title, public, url, quiz_id, question, answer
     FROM quizzes
     JOIN questionsAndAnswer ON quiz_id = quizzes.id
+    JOIN users ON user_id = users.id
     WHERE quizzes.url = '8u8u8u'
     ;`)
       .then(data => {
         const quizItems = data.rows;
-        res.json({ quizItems });
+        console.log(quizItems)
+        res.render("quiz_show", { quizItems });
       })
       .catch(err => {
         res
@@ -31,5 +34,10 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  router.post("/:id/attempt", (req, res) => {
+    console.log(req)
+  });
+
   return router;
 };
