@@ -1,9 +1,7 @@
 body {
   display: flex;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-
+  justify-content: center;
   background: rgb(163, 208, 219);
   background: linear-gradient(
     227deg,
@@ -14,4 +12,40 @@ body {
     rgba(163, 208, 219, 1) 74%,
     rgba(163, 208, 219, 1) 100%
   );
+  main {
+    margin: 1em;
+    min-width: 80%;
+    h3 {
+      width: 80%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .table td {
+      border-top: 0px ;
+    }
+
+    .row {
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+    }
+
+    .quiz-name {
+      width: 80%;
+
+      .quiz-body {
+        width: 90%;
+        margin-right: 5%;
+        margin-left: 5%;
+        height: 10rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 25px;
+      }
+      .quiz-body:hover {
+        box-shadow: 5px 10px #636363;
+      }
+    }
+  }
 }

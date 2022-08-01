@@ -26,20 +26,13 @@
   <main style="margin: 1em;">
     <h3>Public Quizes</h3>
     <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Quiz Name</th>
-          <th scope="col">Previous Score</th>
-        </tr>
-      </thead>
       <tbody>
-        <% let quizes = [{name: 'Georraphy quiz', score: 4}, {name: 'Movies quiz', score: 5}] %>
-        <% for (let quiz of quizes) { %>
-          <tr>
-            <td><form method="GET" action="urls/<%= id %>">
-              <button type="submit" class="btn btn-outline-primary"><%= quiz.name %></button>
+        <% for (let quiz of quizzes) { %>
+          <tr class="row">
+            <td class="quiz-name"><form method="GET" action="quiz/<%= quiz.id %>">
+              <button type="submit" class="btn btn-outline-primary quiz-body"><%= quiz.title %></button>
             </form></td>
-            <td> Most recent score: <%= quiz.score %></td>
+            <td class="score"> Most recent score: <%= quiz.id %></td>
           </tr>
         <% } %>
       </tbody>
