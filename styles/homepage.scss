@@ -1,0 +1,85 @@
+
+#background {
+    background-color: beige;
+}
+
+
+#quizBox {
+    display: flex;
+    flex-direction: column;
+    font-size: 34px;
+    font-family: 'Source sans Pro';
+
+    
+} 
+
+
+#quizRef    {
+    display: flex;
+    border: solid;
+    justify-content: center;
+    height: 20vw;
+    width: auto;
+    padding-top: 3em;
+    margin: 1em;
+    background-color: rgb(242, 242, 198);
+    background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+}
+
+#quizRef:hover   {
+    box-shadow: 4px 4px 4px;
+}
+
+#previouseScoreBox  {
+    display: flex;
+    flex-direction: column;
+    font-size: 34px;
+    font-family: 'Source sans Pro';
+}
+
+#previousScoreTXT   {
+    display: flex;
+    background-color: rgb(242, 242, 198);
+    flex-direction: column;
+    justify-content: center;
+    height: 20vw;
+    width: auto;
+    border: solid;
+    margin: 1em;
+    background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+}
+
+#previousScoreTXT:hover   {
+    box-shadow: 4px 4px 4px;
+}
+
+#psTXT  {
+    display: flex;
+    justify-content: center;
+}
+
+#score  {
+    display: flex;
+    justify-content: center;
+}
+
+
+#navBox {
+    display: flex;
+    background-color: rgb(146, 37, 192);
+    height: 10vw;
+    width: 100vw;
+    border: solid;
+    background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+}
+
+
+#quizColumn {
+    margin: 0;
+    height: 100%;
+}
+
+#scoreColumn {
+    margin: 0;
+    height: 100%;
+}
