@@ -1,0 +1,41 @@
+const express = require('express');
+const router  = express.Router();
+const bcrypt = require('bcrypt');
+
+
+module.exports = (db) => {
+
+  const addUser = function (user) {
+    return db
+      .query(`INSERT INTO users (name, email, password)
+      VALUES ($1, $2, $3) RETURNING *;`, [user.username, user.email, user.password])
+      .then(res => res.rows[0])
+      .catch(err => {
+        console.log('error message', err.stack);
+        return null;
+      })
+  }
+
+  router.get("/", (req, res) => {
+    res.render("register");
+  });
+
+  router.post('/', (req, res) => {
+    const user = req.body;
+    // gets user.email and user.password from req body
+    user.password = bcrypt.hashSync(user.password, 12);
+    addUser(user)
+    .then(user => {
+      if (!user) {
+        res.send({error: "error"});
+        return;
+      }
+      console.log({user})
+      req.session.userId = user.id;
+      res.redirect("/api/home")
+    })
+    .catch(e => res.send(e));
+  });
+
+  return router;
+};
