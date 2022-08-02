@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Quizzo</title>
+  <title>Quizz.io</title>
 
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
@@ -63,6 +63,7 @@
 </header>
 
 <body>
+  
   <main style="margin: 1em;">
     <h3>Public Quizes</h3>
     <table class="table">
@@ -70,9 +71,14 @@
         <% for (let quiz of quizzes) { %>
           <tr class="row">
             <td class="quiz-name"><form method="GET" action="quiz/<%= quiz.id %>">
-              <button type="submit" class="btn btn-outline-primary quiz-body"><%= quiz.title %></button>
+              <button id="quizButton"type="submit" class="btn btn-outline-primary quiz-body"><%= quiz.title %></button>
             </form></td>
-            <td class="score"> Most recent score: <%= quiz.id %></td>
+            <% if ( quiz.user_id === Number(loggedInUser)) { %>
+            <td id="scoreResult"class="score"> Most recent score: <%= quiz.correct %> / <%= quiz.total %></td>
+            <% } else { %> 
+            <td id="scoreResult"class="score">No test data found for current user </td>
+          <% } %>
+
           </tr>
         <% } %>
       </tbody>
