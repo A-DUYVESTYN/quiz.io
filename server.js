@@ -46,6 +46,7 @@ const homeRoutes = require("./routes/home");
 const homepageRoutes = require("./routes/homepage");
 const quiz_showRoutes = require("./routes/quiz_show");
 const register = require("./routes/register");
+const display_score = require("./routes/display_score");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -53,7 +54,7 @@ app.use("/api/home", homeRoutes(db));
 app.use("/api/homepage", homepageRoutes(db));
 app.use("/api/quiz_show", quiz_showRoutes(db));
 app.use("/api/register", register(db));
-
+app.use("/api/display_score", display_score(db));
 
 
 
