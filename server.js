@@ -50,6 +50,7 @@ const homepageRoutes = require("./routes/homepage");
 const quiz_showRoutes = require("./routes/quiz_show");
 const register = require("./routes/register");
 const createQuiz = require("./routes/createquiz");
+const login = require("./routes/login");
 
 
 // Mount all resource routes
@@ -59,13 +60,14 @@ app.use("/api/homepage", homepageRoutes(db));
 app.use("/api/quiz_show", quiz_showRoutes(db));
 app.use("/api/register", register(db));
 app.use("/api/createquiz", createQuiz(db));
-
+app.use("/api/login", login(db));
 
 
 
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+// DELETE ALREADY DECLARED IN HOME ROUTES
 app.get("/", (req, res) => {
 
   res.render("index" );
