@@ -1,0 +1,34 @@
+main {
+  background: rgb(214, 219, 163);
+  background: linear-gradient(
+    227deg,
+    rgb(219, 199, 163) 0%,
+    rgb(217, 219, 163) 20%,
+    rgb(219, 202, 163) 34%,
+    rgb(219, 214, 163) 59%,
+    rgb(219, 218, 163) 74%,
+    rgb(215, 219, 163) 100%
+  );
+
+    #greeting{
+        display: flex;
+        justify-content: center;
+    }
+
+    #inputQuestion{
+        display: flex;
+        justify-content: center;
+    }
+
+    #inputAnswer{
+        display: flex;
+        justify-content: center;
+
+    }
+
+#submitButton{
+        display: flex;
+        justify-content: center;
+    }
+ 
+}
