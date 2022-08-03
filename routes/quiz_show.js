@@ -18,7 +18,7 @@ module.exports = (db) => {
     console.log(req.params.id); // log the url received from the address bar, which is used for querying the quiz
     // for example, 8u8u8u is the url for quiz 1
     const quizUrl = req.params.id;
-    
+
     // ADDED "LEFT" TO LINE 27 ===> NEEDS TO BE A USER ID ASSOCIATED WITH THE QUIZZES ***CHANGE TO LINE 27*****
     db.query(`
     SELECT name, user_id, title, public, url, quiz_id, question, answer
@@ -29,7 +29,7 @@ module.exports = (db) => {
       .then(data => {
         const quizItems = data.rows;
         console.log(quizItems)
-        res.render("quiz_show", { quizItems });
+        res.render("quiz_show", {quizItems, user: req.session.userId, loggedInUser: req.session.userName});
       })
       .catch(err => {
         res

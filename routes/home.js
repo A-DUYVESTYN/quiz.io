@@ -7,7 +7,7 @@ const tallyScores = function(data)  {
     let found = false;
 
     for (const quiz of quizData)  {
-      
+
       if (quiz.id === row.id) {
         found = true;
         if (row.correct) {
@@ -15,7 +15,7 @@ const tallyScores = function(data)  {
           quiz.correct = row.count;
         }
         quiz.total += Number(row.count);
-        break; 
+        break;
       }
     }
     if  (!found) {
@@ -28,7 +28,7 @@ const tallyScores = function(data)  {
     }
   }
   return quizData;
-}  
+}
 module.exports = (db) => {
   router.get("/", (req, res) => {
     db.query(`select attempts.user_id, quizzes.id, quizzes.title, correct, count(questionsAndAnswer.question)
@@ -41,7 +41,7 @@ module.exports = (db) => {
         const quizzes = tallyScores(data.rows);
         // const scores = data.rows[1]
         console.log(data.rows);
-        res.render("home", { quizzes, loggedInUser: req.query.user_id });
+        res.render("home", { quizzes, loggedInUser: req.session.userName, user: req.session.userId});
       })
       .catch(err => {
         res
@@ -49,7 +49,7 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-  
+
   router.get("/quizzes/new", (req, res) => {
     res.render("createQuiz");
   });

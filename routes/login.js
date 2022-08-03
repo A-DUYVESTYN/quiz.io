@@ -27,7 +27,7 @@ const login =  function(email, password) {
 }
 
 router.get("/", (req, res) => {
-  res.render("login");
+  res.render("login", {user: req.session.userId, loggedInUser: req.session.userName});
 });
 
 router.post('/', (req, res) => {
@@ -39,14 +39,15 @@ router.post('/', (req, res) => {
         return;
       }
       req.session.userId = user.id;
+      req.session.userName = user.name;
       res.redirect('/api/home')
     })
     .catch(e => res.send(e));
 });
 
 router.post('/logout', (req, res) => {
-  req.session.userId = null;
-  res.redirect('/');
+  req.session = null;
+  res.redirect('/api/home');
 })
 return router;
 };
