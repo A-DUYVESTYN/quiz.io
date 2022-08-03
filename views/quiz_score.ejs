@@ -29,30 +29,12 @@
   <body>
     <%- include('partials/_header') %>
     <main>
-      <form class="form-inline" action="/api/register" method="POST">
+      <div><h3><%= quizItems.name%>, your score for <%= quizItems.title%> quiz taken on <%= quizItems.date_attempted%> is <%= quizItems.correct_answers %> out of 5!</h3></div>
+      <form class="form-inline" action="http://localhost:8080/api/home">
         <div class="registrationfields">
-        <label for="Username">Username:</label>
-          <input
-            class="form-control"
-            type="username"
-            name="username"
-            placeholder="Enter username"
-          />
-         <label for="email">Email:</label>
-          <input
-            class="form-control"
-            type="email"
-            name="email"
-            placeholder="Enter email"
-          />
-          <label for="password">Password:</label>
-          <input class="form-control"
-            type="password"
-            name="password"
-            placeholder="Password"
-          />
-          <div><button type="submit" class="btn btn-primary submitButton">Submit</button></div>
-          <h3><%= quizItems.name%>, your score for <%= quizItems.title%> taken on <%= quizItems.date_attempted%> is <%= quizItems.correct_answers %> out of 5!</h3>
+
+          <div><button type="submit" class="btn btn-primary submitButton">Try another quiz</button></div>
+
         </div>
       </form>
     </main>
