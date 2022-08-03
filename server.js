@@ -56,7 +56,7 @@ const login = require("./routes/login");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/", homeRoutes(db));
+app.use("/api/home", homeRoutes(db));
 app.use("/api/homepage", homepageRoutes(db));
 app.use("/api/quiz_show", quiz_showRoutes(db));
 app.use("/api/register", register(db));
