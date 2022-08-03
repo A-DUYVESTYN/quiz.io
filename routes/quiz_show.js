@@ -39,6 +39,24 @@ module.exports = (db) => {
 
   // FUNCTIONS /////////////////////////////////////////////////
 
+  const checkLoginByUserId = function(userID) {
+    return db.query(`
+    SELECT id from users
+    WHERE id = $1;`, [userID])
+      .then(res => {
+        if (!res.rows[0].id) {
+          return null
+        }
+        return res.rows[0].id
+      })
+      .catch(err => {
+        console.log('error message', err.stack);
+        return null;
+      })
+  }
+
+
+
   const generateRandomString = function() {
     let length = 6;
     let result = '';
@@ -131,9 +149,26 @@ module.exports = (db) => {
     const attemptUrl = generateRandomString();
     const currentUserId = req.session.userId;
 
+    let userLoggedIn = false
+    checkLoginByUserId(currentUserId)
+    .then(res => {
+      console.log("res: ", )
+      if (!res) {
+
+      }
+    })
+
+    // if (!) {
+    //   console.log
+    //   alert("Please login to see your results (redirecting to login page)");
+    //   res.redirect(`/api/quiz_score/login`);
+    //   return
+    // }
+
     console.log("user's answers: ", req.body);
     console.log("quiz url: ", quizUrl);
     console.log("currentUserId: ", currentUserId);
+    console.log("checkLoginByUserId(currentUserId) :",checkLoginByUserId(currentUserId))
     // faked data for coding functions before login is coded
     // const fakedUserID = 3;
     // const fakedAttemptURL = 'dfdfdf';
