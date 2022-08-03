@@ -14,7 +14,7 @@ const generateRandomString = function() {
 
 module.exports = (db) => {
   router.post("/create", (req, res) => {
-    console.log("req.body.params", req.body);
+    // console.log("req.body.params", req.body);
     const {
       quiz_title,
       Question_1,
@@ -27,6 +27,7 @@ module.exports = (db) => {
       Answer_3,
       Answer_4,
       Answer_5,
+      checkPrivate,
     } = req.body;
     // console.log(
     //     quiz_title,
@@ -40,7 +41,7 @@ module.exports = (db) => {
     //     Answer_3,
     //     Answer_4,
     //     Answer_5,)
-    //     console.log(req.body)
+        console.log(req.body)
 
     const fakeUserID = 1;
 
@@ -52,7 +53,7 @@ module.exports = (db) => {
     )
 
       .then((data) => {
-        console.log("******This is the data", data.rows);
+        // console.log("******This is the data", data.rows);
         const quiz_id = data.rows[0].id;
         const quiz_url = data.rows[0].url
         db.query(
