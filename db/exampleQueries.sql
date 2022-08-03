@@ -37,7 +37,7 @@ AND correct = TRUE
 GROUP BY name, user_id, attempts.quiz_id;
 
 -- ////////////////////////////////////////////////////////////////////////////////////////////
-SELECT name, attempts.user_id, attempts.quiz_id, COUNT(correct) as correct_answers, quizzes.title, date_attempted
+SELECT name, attempts.user_id, attempts.quiz_id, COUNT(correct) as correct_answers, quizzes.title, date_attempted, attempts.url
 FROM attempt_scores
 JOIN questionsandanswer ON questionsandanswer_id = questionsandanswer.id
 JOIN attempts ON attempts_id = attempts.id
@@ -46,11 +46,27 @@ JOIN quizzes ON quizzes.user_id = users.id
 WHERE attempts.quiz_id = 4
 AND attempts.user_id = 4
 AND correct = TRUE
+GROUP BY name, attempts.user_id, attempts.quiz_id, quizzes.title, attempts.date_attempted, attempts.url;
+
+--  name  | user_id | quiz_id | correct_answers |   title    |   date_attempted    |  url
+-- -------+---------+---------+-----------------+------------+---------------------+--------
+--  Yaboi |       4 |       4 |               3 | Cartwheels | 2022-02-17 08:45:00 | 4qwert
+-- /////////////////////////////////////////////////////////////////////////////////////////
+
+SELECT name, attempts.user_id, attempts.quiz_id, COUNT(correct) as correct_answers, quizzes.title, date_attempted
+FROM attempt_scores
+JOIN questionsandanswer ON questionsandanswer_id = questionsandanswer.id
+JOIN attempts ON attempts_id = attempts.id
+JOIN users ON attempts.user_id = users.id
+JOIN quizzes ON quizzes.user_id = users.id
+WHERE attempts.quiz_id = (SELECT quiz_id FROM attempts WHERE url = '4qwert')
+AND attempts.user_id = (SELECT user_id FROM attempts WHERE url = '4qwert')
+AND correct = TRUE
 GROUP BY name, attempts.user_id, attempts.quiz_id, quizzes.title, attempts.date_attempted;
 
--- The query below should return:
---  name  | user_id | quiz_id | correct_answers |   title    |   date_attempted
+-- name  | user_id | quiz_id | correct_answers |   title    |   date_attempted
 -- -------+---------+---------+-----------------+------------+---------------------
 --  Yaboi |       4 |       4 |               3 | Cartwheels | 2022-02-17 08:45:00
 -- (1 row)
--- /////////////////////////////////////////////////////////////////////////////////////////
+--/////////////////////////////////////////////////////////////////////////////////////
+
