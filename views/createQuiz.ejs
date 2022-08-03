@@ -39,8 +39,9 @@
         </div>
     <form method="POST" action="/api/createquiz/create">
 
-        <!-- <input type="text" name="abc">
-        <button>Submit</button> -->
+        <div class="col-sm-10">
+            <input name="quiz_title"type="text" class="form-control" id="quizTitle" placeholder="Write your Quiz Title here...">
+          </div>
         <% for (let i = 1; i < 6; i++) { %>
         <div class="form-group row">
           <label id="inputQuestion"for="inputQuestion" class="col-sm-2 col-form-label">Question <%= i %></label>
