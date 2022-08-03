@@ -16,10 +16,11 @@ module.exports = (db) => {
   });
 
   router.get("/:id", (req, res) => {
-    console.log(req.params.id); // log the url received from the address bar, which is used for querying the quiz
+    console.log("log req.params.id on router.GET: ", req.params.id); // log :id from the address bar, which is used for querying the quiz
     // for example, 8u8u8u is the url for quiz 1
     const quizUrl = req.params.id;
-    
+
+
     // ADDED "LEFT" TO LINE 27 ===> NEEDS TO BE A USER ID ASSOCIATED WITH THE QUIZZES ***CHANGE TO LINE 27*****
     db.query(`
     SELECT name, user_id, title, public, url, quiz_id, question, answer
@@ -29,7 +30,7 @@ module.exports = (db) => {
     WHERE quizzes.url = $1;`, [quizUrl])
       .then(data => {
         const quizItems = data.rows;
-        console.log(quizItems)
+        // console.log("quizItems: ", quizItems)
         res.render("quiz_show", { quizItems });
       })
       .catch(err => {
@@ -42,13 +43,16 @@ module.exports = (db) => {
   // FUNCTIONS /////////////////////////////////////////////////
 
   const checkLoginByUserId = function(userID) {
+    // checks if userID matches a userID in the database, if so, return the userID, otherwise return null
     return db.query(`
     SELECT id from users
     WHERE id = $1;`, [userID])
       .then(res => {
-        if (!res.rows[0].id) {
+        if (!res.rows[0]) {
+          console.log("User not found, returning null")
           return null
         }
+        console.log("user found, returning: ", res.rows[0].id)
         return res.rows[0].id
       })
       .catch(err => {
@@ -121,13 +125,13 @@ module.exports = (db) => {
             })
           }
         }
-        console.log("scores array for INSERT query:", scores)
+        // console.log("scores array for INSERT query:", scores)
         return scores
       })
       // INSERT INTO query creates a row for each question of the quiz to store "attempts_id, questionAndAnswer_id, user_guess, and correct" columns
       .then(res => {
         const values = res.map(item => [item.attempts_id, item.questionsandanswer_id, item.user_guess, item.correct])
-        console.log(values)
+        // console.log(values)
 
         for (const value of values) {
           db.query(`INSERT INTO attempt_scores (attempts_id, questionsandanswer_id, user_guess, correct)
@@ -142,38 +146,39 @@ module.exports = (db) => {
 
   // POST ROUTES //////////////////////////////////////////////
 
-  // determine correct/incorrect and store results in "attempts" and "attempt_scores" db tables
+  // determine if user's answers are correct/incorrect and store results in "attempts" and "attempt_scores" db tables
   // then redirect to the score page (using attempts.url)
   router.post("/:id", (req, res) => {
+
+    const currentUserId = req.session.userId;
+    if (!currentUserId) {
+      console.log("Please login to see your results (redirecting to login page)");
+      res.send("<html><body>Please log in or register to submit a quiz.\n<div><a href=\"/api/login\">Login</a></div></body></html>")
+      // res.redirect(`/api/login`)
+
+      return
+    }
 
     const userAnswers = req.body["quiz-answer"];
     const quizUrl = req.params.id;
     const attemptUrl = generateRandomString();
-    const currentUserId = req.session.userId;
 
-    let userLoggedIn = false
-    checkLoginByUserId(currentUserId)
-    .then(res => {
-      console.log("res: ", )
-      if (!res) {
-
-      }
-    })
-
-    // if (!) {
-    //   console.log
-    //   alert("Please login to see your results (redirecting to login page)");
-    //   res.redirect(`/api/quiz_score/login`);
-    //   return
-    // }
-
+    console.log("//////////////////////////////////////////////////////")
     console.log("user's answers: ", req.body);
     console.log("quiz url: ", quizUrl);
     console.log("currentUserId: ", currentUserId);
-    console.log("checkLoginByUserId(currentUserId) :",checkLoginByUserId(currentUserId))
-    // faked data for coding functions before login is coded
-    // const fakedUserID = 3;
-    // const fakedAttemptURL = 'dfdfdf';
+    console.log("//////////////////////////////////////////////////////")
+
+    // // (NOT WORKING) check user ID and compare it to database
+    // checkLoginByUserId(currentUserId)
+    //   .then(checkId => {
+    //   console.log("res: ", checkId)
+    //     if (!checkId) {
+    //       console.log("Please login to see your results (redirecting to login page)");
+    //       return res.redirect(`/api/login`);
+    //     }
+    //     return getQuizID(quizUrl)
+    //   })
 
     getQuizID(quizUrl)
       .then(quizID => {
@@ -184,7 +189,7 @@ module.exports = (db) => {
           res.send({ error: "error" });
           return;
         }
-        console.log({ attempt })
+        console.log("attempt info: ",{ attempt })
         return addAttemptScores(attempt, userAnswers)
       })
       .then(() => {
