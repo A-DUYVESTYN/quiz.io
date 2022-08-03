@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/display_score.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/quiz_score.css" type="text/css" />
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -52,6 +52,7 @@
             placeholder="Password"
           />
           <div><button type="submit" class="btn btn-primary submitButton">Submit</button></div>
+          <h3><%= quizItems.name%>, your score for <%= quizItems.title%> taken on <%= quizItems.date_attempted%> is <%= quizItems.correct_answers %> out of 5!</h3>
         </div>
       </form>
     </main>
