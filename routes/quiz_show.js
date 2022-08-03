@@ -126,22 +126,21 @@ module.exports = (db) => {
   // then redirect to the score page (using attempts.url)
   router.post("/:id", (req, res) => {
 
-    const userAnswers = req.body["quiz-answer"]
-    const quizUrl = req.params.id
+    const userAnswers = req.body["quiz-answer"];
+    const quizUrl = req.params.id;
     const attemptUrl = generateRandomString();
+    const currentUserId = req.session.userId;
 
-    console.log(req.body) // log user's answers (array)
-    console.log(quizUrl)
-
+    console.log("user's answers: ", req.body);
+    console.log("quiz url: ", quizUrl);
+    console.log("currentUserId: ", currentUserId);
     // faked data for coding functions before login is coded
-    const fakedUserID = 3;
-    console.log(req.session.userId);
-
+    // const fakedUserID = 3;
     // const fakedAttemptURL = 'dfdfdf';
 
     getQuizID(quizUrl)
       .then(quizID => {
-        return addAttempt(fakedUserID, quizID, attemptUrl)
+        return addAttempt(currentUserId, quizID, attemptUrl)
       })
       .then(attempt => {
         if (!attempt) {
@@ -152,7 +151,7 @@ module.exports = (db) => {
         return addAttemptScores(attempt, userAnswers)
       })
       .then(() => {
-        res.redirect("/api/quiz_show/8u8u8u")
+        res.redirect(`/api/quiz_score/${attemptUrl}`)
       })
       .catch(e => res.send(e));
   });
