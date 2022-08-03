@@ -49,6 +49,11 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+  
+  router.get("/quizzes/new", (req, res) => {
+    res.render("createQuiz");
+  });
+
   return router;
 };
 

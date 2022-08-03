@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Quizz.io</title>
+
+
+  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
+  <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="/styles/main.css" type="text/css" /> -->
+  <!-- <link rel="stylesheet" href="/styles/layout.css" type="text/css" /> -->
+  <!-- <link rel="stylesheet" href="/styles/home.css" type="text/css" /> -->
+  <link rel="stylesheet" href="/styles/createQuiz.css" type="text/css" />
+
+
+
+  <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
+  <script type="text/javascript" src="/scripts/app.js"></script>
+
+  <!-- BootStrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+
+  <link
+  rel="stylesheet"
+  href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+  integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+  crossorigin="anonymous"
+/>
+</head>
+
+
+
+<body>
+  <%- include('partials/_header') %>
+  <main>
+        <div class="form-group row">
+                <h1 id="greeting">Create a Quiz! :)</h1>
+        </div>
+    <form method="POST" action="/api/createquiz/create">
+
+        <div class="col-sm-10">
+            <input name="quiz_title"type="text" class="form-control" id="quizTitle" placeholder="Write your Quiz Title here...">
+          </div>
+        <% for (let i = 1; i < 6; i++) { %>
+        <div class="form-group row">
+          <label id="inputQuestion"for="inputQuestion" class="col-sm-2 col-form-label">Question <%= i %></label>
+          <div class="col-sm-10">
+            <input name="Question_<%= i %>"type="text" class="form-control" id="inputQuestion" placeholder="Write your question here...">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label id="inputAnswer"for="inputAnswer" class="col-sm-2 col-form-label">Answer</label>
+          <div class="col-sm-10">
+            <input name="Answer_<%= i %>" type="text" class="form-control" id="inputAnswer" placeholder="Write your answer here...">
+          </div>
+        </div>
+        <% } %>
+        <div class="form-group row">
+          <div class="col-sm-2"></div>
+          <div class="col-sm-10">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="privateCheck">
+              <label class="form-check-label" for="privateCheck">
+                Make this quiz private
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button id="submitButton"type="submit" class="btn btn-primary">Create Quiz!</button>
+          </div>
+        </div>
+      </form>
+  </main>
+
+</body>
+
+</html>

@@ -16,9 +16,12 @@ module.exports = (db) => {
       })
   }
 
+
+  //MOVE TO HOME.JS 
   router.get("/", (req, res) => {
     res.render("register");
   });
+// //////////
 
   router.post('/', (req, res) => {
     const user = req.body;
