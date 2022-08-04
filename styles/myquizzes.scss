@@ -1,0 +1,81 @@
+// makes the page fit the whole viewport
+html {
+  height: 100vh;
+}
+
+// moved the gradient background from main to body so it fills the whole page
+body {
+  background: rgb(214, 219, 163);
+  background: linear-gradient(
+    227deg,
+    rgb(219, 199, 163) 0%,
+    rgb(217, 219, 163) 20%,
+    rgb(219, 202, 163) 34%,
+    rgb(219, 214, 163) 59%,
+    rgb(219, 218, 163) 74%,
+    rgb(215, 219, 163) 100%
+  );
+
+}
+
+
+
+main {
+
+  .table td {
+    border-top: 0;
+    border-bottom-width: 0;
+
+  }
+    h3 {
+      padding-top: 1em;
+      display: flex;
+      justify-content: center;
+    }
+
+    .message {
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .private-public {
+      margin-top: 0.2rem;
+      margin-bottom: 0.2rem;
+      font-weight: lighter;
+      color: rgb(88, 88, 88);
+
+    }
+    .row {
+      --bs-gutter-x: 0;
+      margin-right: 0;
+      margin-left: 0;
+      align-items: center;
+    }
+
+    #scoreResult   {
+        display: flex;
+        justify-content: center;
+    }
+    // #quizButton {
+    //   margin: 0.5rem;
+    // }
+    .quiz-name {
+    display: flex;
+    justify-content: center;
+
+
+
+      .quiz-body {
+        // incraesed font size
+        font-size: 1.5rem;
+        font-weight: bold;
+        // changed width from 40em to 40rem to fix button size scaling with font
+        width: 40rem;
+        height: 10rem;
+      }
+      .quiz-body:hover {
+        box-shadow: 5px 10px #636363;
+      }
+    }
+  }

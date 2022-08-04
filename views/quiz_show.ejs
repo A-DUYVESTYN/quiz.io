@@ -26,20 +26,20 @@
   <%- include('partials/_header') %>
     <main>
       <h3>Take a Quiz</h3>
-      <h4>
-        <%= quizItems[0].title %>
+      <h4 class="title">
+        <a class="quizlabel"></a><%= quizItems[0].title %>
       </h4>
-      <p>Quiz url: api/quiz_show/<%= quizItems[0].url %>
-      </p>
-      <p>Created by: <%= quizItems[0].name %>
-      </p>
+      <h5 class="title"><a class="quizlabel">Quiz url:&nbsp</a> api/quiz_show/<%= quizItems[0].url %>
+      </h5>
+      <h5 class="title"><a class="quizlabel">Created by:&nbsp</a> <%= quizItems[0].name %>
+      </h5>
       <form id="answers" action="/api/quiz_show/<%= quizItems[0].url %>" method="POST">
       <table class="table">
         <tbody>
           <% let counter=1 %>
             <% for (let questionItem of quizItems) { %>
               <tr class="row">
-                <div>
+                <div class = "question">
                   <%= counter%>. <%= questionItem.question %>
                 </div>
                 <div class="quiz-answers">
@@ -54,7 +54,11 @@
               <% counter++ %>
                 <% } %>
         </tbody>
+        <% if (loggedInUser) { %>
         <button type="submit" class="btn btn-outline-primary quiz-body"> Submit Answers</button>
+        <% } else { %>
+          <p class="error"> Please <a href="/api/login">Login</a> to submit your answers and see your score</p>
+        <% } %>
       </table>
     </form>
     </main>
