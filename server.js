@@ -52,6 +52,7 @@ const register = require("./routes/register");
 const quiz_score = require("./routes/quiz_score");
 const createQuiz = require("./routes/createquiz");
 const login = require("./routes/login");
+const myquizzes = require("./routes/myquizzes");
 
 
 // Mount all resource routes
@@ -63,6 +64,7 @@ app.use("/api/register", register(db));
 app.use("/api/quiz_score", quiz_score(db));
 app.use("/api/createquiz", createQuiz(db));
 app.use("/api/login", login(db));
+app.use("/api/myquizzes", myquizzes(db));
 
 
 
