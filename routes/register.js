@@ -17,9 +17,9 @@ module.exports = (db) => {
   }
 
 
-  //MOVE TO HOME.JS 
+  //MOVE TO HOME.JS
   router.get("/", (req, res) => {
-    res.render("register");
+    res.render("register", {user: req.session.userId, loggedInUser: req.session.userName});
   });
 // //////////
 
@@ -35,6 +35,7 @@ module.exports = (db) => {
       }
       console.log({user})
       req.session.userId = user.id;
+      req.session.userName = user.name;
       res.redirect("/api/home")
     })
     .catch(e => res.send(e));

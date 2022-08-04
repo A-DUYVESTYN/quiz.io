@@ -16,7 +16,7 @@ module.exports = (db) => {
 
         const quizzes = data.rows;
         console.log(data.rows)
-        res.render("homepage", { quizzes });
+        res.render("homepage", { quizzes, user: req.session.userId, loggedInUser: req.session.userName});
       })
       .catch(err => {
         res

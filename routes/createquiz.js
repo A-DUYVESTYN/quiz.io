@@ -74,8 +74,10 @@ module.exports = (db) => {
   });
 
   router.get("/", (req, res) => {
-    res.render("createQuiz");
-  });
+  
+    res.render("createQuiz", {user: req.session.userId, loggedInUser: req.session.userName})
+  })
+
 
   return router;
 };
