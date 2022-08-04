@@ -72,9 +72,6 @@ module.exports = (db) => {
     group by attempts.user_id, correct, quizzes.id;`, [req.session.userId])
       .then(data => {
         const quizzes = tallyScores(data.rows);
-        // const scores = data.rows[1]
-        // console.log(data.rows)
-        // console.log(tallyScores(data.rows));
         db.query(`SELECT attempts.id, attempts.user_id, quiz_id, attempts.url, date_attempted, title
         FROM attempts
         JOIN quizzes on quizzes.id = quiz_id
@@ -86,21 +83,7 @@ module.exports = (db) => {
           console.log("///////////////////data.rows:", recentResults)
           res.render("home", { quizzes, recentResults, user: req.session.userId, loggedInUser: req.session.userName, });
 
-          // const score = calcScore(data.rows)
-          // // console.log(score)
-          // db.query(`SELECT attempts.id, attempts.user_id, quiz_id, attempts.url, date_attempted, title
-          // FROM attempts
-          // JOIN quizzes on quizzes.id = quiz_id
-          // WHERE attempts.id in ( SELECT MAX(attempts.id) from attempts group by quiz_id)
-          // AND attempts.user_id = 1;`, [req.session.userId])
-
-          // .then(data => {
-          //   all_attempts = data.rows[0].all_attempts;
-          //   console.log(all_attempts)
-          //   res.render("home", { quizzes, user: req.session.userId, score, loggedInUser: req.session.userName, });
-          // })
         })
-
       })
       .catch(err => {
         res
@@ -108,11 +91,6 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
-
-
-
-
-
 
 
   // router.get("/", (req, res) => {
@@ -161,19 +139,12 @@ module.exports = (db) => {
   //     });
   // });
 
-
-
-
   router.get("/quizzes/new", (req, res) => {
     res.render("createQuiz");
   });
 
   return router;
 };
-
-
-
-
 
 
 // id |   title   | correct | count
@@ -183,9 +154,6 @@ module.exports = (db) => {
 //   1 | BEST BUGS | t       |     4
 //   2 | Socks     | t       |     4
 // (4 rows)
-
-
-
 
 // select quizzes.id, quizzes.title, correct, count(questionsAndAnswer.question)
 // from attempt_scores
