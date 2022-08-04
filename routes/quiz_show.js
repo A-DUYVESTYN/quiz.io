@@ -152,11 +152,8 @@ module.exports = (db) => {
 
     const currentUserId = req.session.userId;
     if (!currentUserId) {
-      console.log("Please login to see your results (redirecting to login page)");
-      res.send("<html><body>Please log in or register to submit a quiz.\n<div><a href=\"/api/login\">Login</a></div></body></html>")
-      // res.redirect(`/api/login`)
-
-      return
+      console.log("User must login to see score (redirect to login)");
+      return res.send(`<script>alert("Please login to see your score"); window.location.href = "/api/login"; </script>`);
     }
 
     const userAnswers = req.body["quiz-answer"];
@@ -169,7 +166,7 @@ module.exports = (db) => {
     console.log("currentUserId: ", currentUserId);
     console.log("//////////////////////////////////////////////////////")
 
-    // // (NOT WORKING) check user ID and compare it to database
+    // // (NOT WORKING) check user ID and compare it to users database
     // checkLoginByUserId(currentUserId)
     //   .then(checkId => {
     //   console.log("res: ", checkId)
