@@ -18,9 +18,9 @@ GROUP BY name, attempts.user_id, attempts.quiz_id, quizzes.title, attempts.date_
       .then(data => {
         const quizItems = data.rows[0];
         console.log(quizItems)
-        if (!req.session.userId) {
-          res.redirect('/api/login')
-        }
+        // if (!req.session.userId) {
+        //   res.redirect('/api/login')
+        // }
         res.render("quiz_score", { quizItems, user: req.session.userId, loggedInUser: req.session.userName});
       })
       .catch(err => {
