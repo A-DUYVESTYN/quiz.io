@@ -47,7 +47,7 @@ router.post('/', (req, res) => {
 
 router.post('/logout', (req, res) => {
   req.session = null;
-  res.redirect('/api/home');
+  res.redirect('/api/login');
 })
 return router;
 };

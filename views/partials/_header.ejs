@@ -12,14 +12,15 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+    <% if (loggedInUser) { %>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link active" href="/api/createquiz">Create a Quiz</a>
         <a class="nav-link active" href="/api/home">Public Quizes</a>
         <a class="nav-link active" href="/api/myquizes">My Quizes</a>
       </div>
     </div>
-    <% if (loggedInUser) { %>
       <p>Logged in as: <%= loggedInUser %>!  </p>
       <form class="form-inline" action="/api/login/logout" method="POST">
         <div class="form-group mb-2">
