@@ -4,13 +4,13 @@ const router  = express.Router();
 module.exports = (db) => {
   router.get("/:url", (req, res) => {
     db.query(`
-    SELECT quizzes.title, users.name, attempts.user_id, attempts.quiz_id, attempts.date_attempted, COUNT(attempt_scores.correct) as correct_answers
+    SELECT quizzes.title, users.name, attempts.user_id, attempts.quiz_id, attempts.date_attempted,
+COUNT(case WHEN attempt_scores.correct = 'TRUE' then 1 end) as correct_answers, COUNT(attempt_scores.correct) as total_answers
 FROM quizzes
 JOIN attempts ON quizzes.id = quiz_id
 JOIN users ON users.id = attempts.user_id
 JOIN attempt_scores ON attempts.id = attempts_id
 WHERE attempts.url = $1
-AND attempt_scores.correct = TRUE
 GROUP BY quizzes.title, users.name, attempts.user_id, attempts.quiz_id, attempts.date_attempted;
 `, [req.params.url])
       .then(data => {

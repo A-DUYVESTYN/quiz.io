@@ -29,7 +29,7 @@
   <body>
     <%- include('partials/_header') %>
     <main>
-      <div><h3><%= quizItems.name%>, your score for <%= quizItems.title%> quiz taken on <%= quizItems.date_attempted%> is <%= quizItems.correct_answers %> out of 5!</h3></div>
+      <div><h3><%= quizItems.name%>, your score for <%= quizItems.title%> quiz taken on <%= quizItems.date_attempted%> is <%= quizItems.correct_answers %> out of <%=quizItems.total_answers %>!</h3></div>
       <form class="form-inline" action="http://localhost:8080/api/home">
         <div class="registrationfields">
           <% if (loggedInUser) { %>
