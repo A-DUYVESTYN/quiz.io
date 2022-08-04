@@ -42,8 +42,8 @@
             <td class="quiz-name"><form method="GET" action="/api/quiz_show/<%= quiz.url %>">
               <button id="quizButton"type="submit" class="btn btn-outline-primary quiz-body"><%= quiz.title %></button>
             </form></td>
-            <% if ( quiz.user_id === Number(loggedInUser)) { %>
-            <td id="scoreResult"class="score"> Most recent score: <%= score %></td>
+            <% if ( quiz.user_id === Number(user)) { %>
+            <td id="scoreResult"class="score"> Most recent score: <%= quiz.correct %> / <%= quiz.total %></td>
             <% } else { %> 
             <td id="scoreResult"class="score">No test data found for current user </td>
           <% } %>

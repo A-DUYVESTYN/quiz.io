@@ -29,7 +29,7 @@ module.exports = (db) => {
       privateCheck = false,
     } = req.body;
 
-    console.log(privateCheck);
+    // console.log(privateCheck);
     const fakeUserID = 1;
     
        
