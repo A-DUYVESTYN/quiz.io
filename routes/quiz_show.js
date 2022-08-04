@@ -21,7 +21,7 @@ module.exports = (db) => {
     
     // ADDED "LEFT" TO LINE 27 ===> NEEDS TO BE A USER ID ASSOCIATED WITH THE QUIZZES ***CHANGE TO LINE 27*****
     db.query(`
-    SELECT name, user_id, title, public, url, quiz_id, question, answer
+    SELECT name, user_id, title, private, url, quiz_id, question, answer
     FROM quizzes
     JOIN questionsAndAnswer ON quiz_id = quizzes.id
     JOIN users ON user_id = users.id

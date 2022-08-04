@@ -18,3 +18,15 @@ INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, corr
 INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (4, 18, '400', TRUE);
 INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (4, 19, '42', TRUE);
 INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (4, 20, 'potato', FALSE);
+
+INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (5, 6, 'red', TRUE);
+INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (5, 7, 'big', TRUE);
+INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (5, 8, 'Plankton', FALSE);
+INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (5, 9, 'Dentist', TRUE);
+INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (5, 10, 'potato', FALSE);
+
+INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (6, 6, 'blue', FALSE);
+INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (6, 7, 'big', TRUE);
+INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (6, 8, 'Joker', TRUE);
+INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (6, 9, 'Dentist', TRUE);
+INSERT INTO attempt_scores (attempts_id, questionsAndAnswer_id, user_guess, correct) VALUES (6, 10, 'potato', FALSE);
