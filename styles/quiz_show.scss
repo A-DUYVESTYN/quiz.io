@@ -14,14 +14,34 @@ body {
   justify-content: flex-start;
 
   main {
-    margin: 3rem;
+    margin: 2rem;
+
+    h5 {
+      font-size: small;
+    }
+
+    .title {
+      display: flex;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .quizlabel {
+      font-weight: normal;
+      color: dimgray;
+    }
+
+    .question {
+      min-width: 200px
+    }
     .quiz-answers {
       margin-bottom: 1em;
     }
     .form-control {
-      max-width: 700px;
-      min-width: 100px
+      max-width: 100%;
+      min-width: 200px
     }
-
+    .error {
+      color: red;
+    }
   }
 }

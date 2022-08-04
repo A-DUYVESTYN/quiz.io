@@ -55,12 +55,12 @@ GROUP BY name, attempts.user_id, attempts.quiz_id, quizzes.title, attempts.date_
 
 SELECT name, attempts.user_id, attempts.quiz_id, COUNT(correct) as correct_answers, quizzes.title, date_attempted
 FROM attempt_scores
-JOIN questionsandanswer ON questionsandanswer_id = questionsandanswer.id
+JOIN questionsAndAnswer ON questionsAndAnswer_id = questionsAndAnswer.id
 JOIN attempts ON attempts_id = attempts.id
 JOIN users ON attempts.user_id = users.id
 JOIN quizzes ON quizzes.user_id = users.id
-WHERE attempts.quiz_id = (SELECT quiz_id FROM attempts WHERE url = '4qwert')
-AND attempts.user_id = (SELECT user_id FROM attempts WHERE url = '4qwert')
+WHERE attempts.quiz_id = (SELECT quiz_id FROM attempts WHERE url = '2qwert')
+AND attempts.user_id = (SELECT user_id FROM attempts WHERE url = '2qwert')
 AND correct = TRUE
 GROUP BY name, attempts.user_id, attempts.quiz_id, quizzes.title, attempts.date_attempted;
 
@@ -70,3 +70,11 @@ GROUP BY name, attempts.user_id, attempts.quiz_id, quizzes.title, attempts.date_
 -- (1 row)
 --/////////////////////////////////////////////////////////////////////////////////////
 
+SELECT quizzes.title, users.name, attempts.user_id, attempts.quiz_id, attempts.date_attempted,
+COUNT(case WHEN attempt_scores.correct = 'TRUE' then 1 end) as correct_answers, COUNT(attempt_scores.correct) as total_answers
+FROM quizzes
+JOIN attempts ON quizzes.id = quiz_id
+JOIN users ON users.id = attempts.user_id
+JOIN attempt_scores ON attempts.id = attempts_id
+WHERE attempts.url = 'OG6mKt'
+GROUP BY quizzes.title, users.name, attempts.user_id, attempts.quiz_id, attempts.date_attempted;

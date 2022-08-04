@@ -21,7 +21,7 @@ module.exports = (db) => {
     const quizUrl = req.params.id;
 
     db.query(`
-    
+
     SELECT name, user_id, title, url, quiz_id, question, answer
     FROM quizzes
     JOIN questionsAndAnswer ON quiz_id = quizzes.id
@@ -59,8 +59,6 @@ module.exports = (db) => {
         return null;
       })
   }
-
-
 
   const generateRandomString = function() {
     let length = 6;
