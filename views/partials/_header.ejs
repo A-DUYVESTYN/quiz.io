@@ -1,3 +1,10 @@
+<link
+    href="https://fonts.googleapis.com/css2?family=Bungee&family=Source+Sans+Pro:ital,wght@0,300;0,600;1,300;1,600&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/styles/header.css" type="text/css" />
+
+
 <header>
   <nav class="navbar navbar-expand-sm navbar-light bg-light" style="align-items: baseline;">
     <a class="navbar-brand">Quiz.io</a>
@@ -16,20 +23,20 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <ul class="navbar-nav">
         <li class="nav-item">
-        <a class="nav-link active" href="/api/createquiz">Create a Quiz</a>
+        <a style="color: aliceblue;" class="nav-link active" href="/api/createquiz">Create a Quiz</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="/api/home">Public Quizes</a>
+        <a style="color: aliceblue;"class="nav-link active" href="/api/home">Public Quizes</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="/api/myquizzes">My Quizes</a>
+        <a style="color: aliceblue;"class="nav-link active" href="/api/myquizzes">My Quizes</a>
       </li>
     </ul>
     </div>
       <p>Logged in as: <%= loggedInUser %>!  </p>
       <form class="form-inline" action="/api/login/logout" method="POST">
         <div class="form-group mb-2">
-          <button type="submit" class="btn btn-outline-dark" style="margin-left: 5px;">Logout</button>
+          <button type="submit" class="btn btn-outline-light" style="margin-left: 5px;">Logout</button>
         </div>
       </form>
   <% } %>

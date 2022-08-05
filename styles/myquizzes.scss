@@ -21,6 +21,7 @@ body {
 
 
 main {
+  font-family: 'Bungee';
 
   .table td {
     border-top: 0;
@@ -57,9 +58,11 @@ main {
         display: flex;
         justify-content: center;
     }
-    // #quizButton {
-    //   margin: 0.5rem;
-    // }
+    #quizButton {
+      font-size: 30px;
+        background-image: url("https://www.transparenttextures.com/patterns/bright-squares.png");
+
+    }
     .quiz-name {
     display: flex;
     justify-content: center;

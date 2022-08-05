@@ -36,21 +36,21 @@ const tallyScores = function(data)  {
 }  
 
 
-const calcScore = function(data)  {
-  let right = 0;
-  let wrong = 0;
-  for (const row of data) {
-    if (row.correct === true) {
-      right += 1;
-    } else {
-      wrong += 1
-    }
-  }
-  let total = right + wrong; 
-    const scoreVar = `${right} / ${total}`
-    // console.log(scoreVar)
-    return scoreVar;
-  }
+// const calcScore = function(data)  {
+//   let right = 0;
+//   let wrong = 0;
+//   for (const row of data) {
+//     if (row.correct === true) {
+//       right += 1;
+//     } else {
+//       wrong += 1
+//     }
+//   }
+//   let total = right + wrong; 
+//     const scoreVar = `${right} / ${total}`
+//     // console.log(scoreVar)
+//     return scoreVar;
+//   }
 
 
 
@@ -58,7 +58,7 @@ const calcScore = function(data)  {
 ///deleted a bracket here
 
 let all_attempts;
-console.log(all_attempts)
+// console.log(all_attempts)
 module.exports = (db) => {
   router.get("/", (req, res) => {
     db.query(`select attempts.user_id, quizzes.private, quizzes.url, quizzes.id, quizzes.title, correct, count(questionsAndAnswer.question)
@@ -66,37 +66,15 @@ module.exports = (db) => {
     join attempts on attempts.id = attempts_id
     join questionsAndAnswer on attempt_scores.questionsAndAnswer_id = questionsAndAnswer.id
     right join quizzes on attempts.quiz_id = quizzes.id
-    where attempts.user_id = $1
-    group by attempts.user_id, correct, quizzes.id;`, [req.session.userId])
+    where quizzes.private = false
+    group by attempts.user_id, correct, quizzes.id;`)
       .then(data => {
         const quizzes = tallyScores(data.rows);
         // const scores = data.rows[1]
-        // console.log(data.rows)
+        console.log(data.rows)
         // console.log(tallyScores(data.rows));
-        db.query(`select max(attempts_id), attempts.*, attempt_scores.correct, questionsAndAnswer_id
-        from attempt_scores
-        join attempts on attempts_id = attempts.id
-        where user_id = $1
-        group by attempts.id, attempt_scores.correct, questionsAndAnswer_id
-        order by max(attempts_id) desc
-        limit 5;
-        `, [req.session.userId])
-        .then(data => {
-          const score = calcScore(data.rows)
-          // console.log(score)
-          db.query(`select count(all_attempts) as all_attempts from (select distinct max(attempts_id) as all_attempts
-          from attempt_scores
-          join attempts on attempts_id = attempts.id
-          where user_id = $1
-          group by attempts.id, attempt_scores.correct, questionsAndAnswer_id
-          order by max(attempts_id) desc) as result
-          ;`, [req.session.userId])
-          .then(data => {
-            all_attempts = data.rows[0].all_attempts;
-            console.log(all_attempts)
-            res.render("home", { quizzes, user: req.session.userId, score, loggedInUser: req.session.userName, });
-          })
-        })
+        res.render("home", { quizzes, user: req.session.userId, loggedInUser: req.session.userName, });
+
       
       })
       .catch(err => {

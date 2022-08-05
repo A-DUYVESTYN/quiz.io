@@ -1,4 +1,7 @@
 main {
+    min-height: 100vh;
+
+  font-family: 'Bungee';
   background: rgb(214, 219, 163);
   background: linear-gradient(
     227deg,
@@ -9,7 +12,25 @@ main {
     rgb(219, 218, 163) 74%,
     rgb(215, 219, 163) 100%
   );
+    
+  #kiwi{
+    padding-left: 1em;
+    width: 50px;
+    height: 50px;
+  }
+  #pencil{
+    padding-left: 1em;
+    width: 50px;
+    height: 50px;
+  }
 
+    #quizTitle{
+        display: flex;
+        justify-content: center;
+        width:26%;
+        margin-left: 45%;
+        // padding-left: 10%;
+    }
     #greeting{
         display: flex;
         justify-content: center;
@@ -18,17 +39,21 @@ main {
     #inputQuestion{
         display: flex;
         justify-content: center;
+        width: 75%;
     }
 
     #inputAnswer{
         display: flex;
         justify-content: center;
+        width: 25%
+
 
     }
 
 #submitButton{
         display: flex;
         justify-content: center;
+        margin-left: 45%;
     }
  
 }
