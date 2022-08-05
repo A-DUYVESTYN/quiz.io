@@ -68,8 +68,8 @@ module.exports = (db) => {
     join attempts on attempts.id = attempts_id
     join questionsAndAnswer on attempt_scores.questionsAndAnswer_id = questionsAndAnswer.id
     right join quizzes on attempts.quiz_id = quizzes.id
-    where attempts.user_id = $1
-    group by attempts.user_id, correct, quizzes.id;`, [req.session.userId])
+    where quizzes.private = false
+    group by attempts.user_id, correct, quizzes.id;`)
       .then(data => {
         const quizzes = tallyScores(data.rows);
         db.query(`SELECT attempts.id, attempts.user_id, quiz_id, attempts.url, date_attempted, title
