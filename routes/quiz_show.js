@@ -126,14 +126,16 @@ module.exports = (db) => {
         return scores
       })
       // INSERT INTO query creates a row for each question of the quiz to store "attempts_id, questionAndAnswer_id, user_guess, and correct" columns
-      .then(res => {
+      .then(res => { const promiseArray = []
         const values = res.map(item => [item.attempts_id, item.questionsandanswer_id, item.user_guess, item.correct])
         // console.log(values)
 
         for (const value of values) {
-          db.query(`INSERT INTO attempt_scores (attempts_id, questionsandanswer_id, user_guess, correct)
-      VALUES ($1, $2, $3, $4);`, value)
+          promiseArray.push(db.query(`INSERT INTO attempt_scores (attempts_id, questionsandanswer_id, user_guess, correct)
+      VALUES ($1, $2, $3, $4) RETURNING *;`, value))
         }
+        return Promise.all(promiseArray)
+        .then(values => values )
       })
       .catch(err => {
         console.log('error message', err.stack);
@@ -186,7 +188,8 @@ module.exports = (db) => {
         console.log("attempt info: ",{ attempt })
         return addAttemptScores(attempt, userAnswers)
       })
-      .then(() => {
+      .then((values) => {
+        console.log("VALUES", values)
         res.redirect(`/api/quiz_score/${attemptUrl}`)
       })
       .catch(e => res.send(e));

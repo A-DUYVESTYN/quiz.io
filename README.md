@@ -1,3 +1,14 @@
+Quiz.io
+=========
+
+Quiz.io is a little quiz app that lets logged in users to create quizzes and share them between friends.
+
+## Project Setup
+This project was built using the follwonig technologies: JavaScript, EJS, Express Server, PostgreSQL, Bcrypt, Cookie-Session, Sass, Boootstrap.
+
+## Screenshots
+
+
 LHL Node Skeleton
 =========
 
@@ -41,3 +52,15 @@ The following steps are only for _one_ of the group members to perform.
 - Node 10.x or above
 - NPM 5.x or above
 - PG 6.x
+- bcrypt: ^5.0.1,
+- body-parser: ^1.20.0,
+- chalk: ^2.4.2,
+- cookie-session: ^2.0.0,
+- dotenv: ^2.0.0,
+- ejs: ^2.6.2,
+- express: ^4.17.1,
+- morgan: ^1.9.1,
+- pg: ^8.5.0,
+- sass: ^1.35.1
+- nodemon: ^2.0.10
+
