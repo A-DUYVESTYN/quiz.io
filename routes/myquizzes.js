@@ -1,41 +1,6 @@
 const express = require('express');
 const router  = express.Router();
 
-const tallyScores = function(data)  {
-  const quizData = [];
-    for (const row of data) {
-    let found = false;
-
-    for (const quiz of quizData)  {
-
-      if (quiz.id === row.id) {
-        found = true;
-        if (row.correct) {
-
-          quiz.correct = row.count;
-        }
-        quiz.total += Number(row.count);
-        break;
-      }
-    }
-    if  (!found) {
-      quizData.push({title: row.title,
-      id: row.id,
-      userAttempts: row.userAttempts,
-      correct: row.correct ? row.count: 0,
-      total: Number(row.count) ,
-      user_id: row.user_id,
-      private: row.private,
-      url: row.url
-      });
-    }
-  }
-  // console.log("QUIZ DATA*******", quizData)
-  return quizData;
-
-}
-
-
 module.exports = (db) => {
   router.get("/", (req, res) => {
 

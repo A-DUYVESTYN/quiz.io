@@ -21,7 +21,7 @@ const tallyScores = function(data)  {
     if  (!found) {
       quizData.push({title: row.title,
       id: row.id,
-      
+
       correct: row.correct ? row.count: 0,
       total: Number(row.count),
       user_id: row.user_id,
@@ -33,7 +33,8 @@ const tallyScores = function(data)  {
   // console.log("QUIZ DATA*******", quizData)
   return quizData;
 
-}  
+}
+
 
 
 // const calcScore = function(data)  {
@@ -52,14 +53,33 @@ const tallyScores = function(data)  {
 //     return scoreVar;
 //   }
 
+const calcScore = function(data)  {
+  let right = 0;
+  let wrong = 0;
+  for (const row of data) {
+    if (row.correct === true) {
+      right += 1;
+    } else {
+      wrong += 1
+    }
+  }
+  let total = right + wrong;
+    const scoreVar = `${right} / ${total}`
+    // console.log(scoreVar)
+    return scoreVar;
+  }
 
 
 
-///deleted a bracket here
 
-let all_attempts;
-// console.log(all_attempts)
+
+
+
+
+
+
 module.exports = (db) => {
+
   router.get("/", (req, res) => {
     db.query(`select attempts.user_id, quizzes.private, quizzes.url, quizzes.id, quizzes.title, correct, count(questionsAndAnswer.question)
     from attempt_scores
@@ -70,12 +90,27 @@ module.exports = (db) => {
     group by attempts.user_id, correct, quizzes.id;`)
       .then(data => {
         const quizzes = tallyScores(data.rows);
+
         // const scores = data.rows[1]
         console.log(data.rows)
         // console.log(tallyScores(data.rows));
-        res.render("home", { quizzes, user: req.session.userId, loggedInUser: req.session.userName, });
+        // res.render("home", { quizzes, user: req.session.userId, loggedInUser: req.session.userName, });
 
       
+
+        db.query(`SELECT attempts.id, attempts.user_id, quiz_id, attempts.url, date_attempted, title
+        FROM attempts
+        JOIN quizzes on quizzes.id = quiz_id
+        WHERE attempts.id in ( SELECT MAX(attempts.id) from attempts group by quiz_id)
+        AND attempts.user_id = $1;`, [req.session.userId])
+        .then(data => {
+          const recentResults = data.rows
+          console.log("///////////////////quizzes:", quizzes)
+          console.log("///////////////////data.rows:", recentResults)
+          res.render("home", { quizzes, recentResults, user: req.session.userId, loggedInUser: req.session.userName, });
+
+        })
+
       })
       .catch(err => {
         res
@@ -83,6 +118,53 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+
+  // router.get("/", (req, res) => {
+  //   db.query(`select attempts.user_id, quizzes.private, quizzes.url, quizzes.id, quizzes.title, correct, count(questionsAndAnswer.question)
+  //   from attempt_scores
+  //   join attempts on attempts.id = attempts_id
+  //   join questionsAndAnswer on attempt_scores.questionsAndAnswer_id = questionsAndAnswer.id
+  //   right join quizzes on attempts.quiz_id = quizzes.id
+  //   where attempts.user_id = $1
+  //   group by attempts.user_id, correct, quizzes.id;`, [req.session.userId])
+  //     .then(data => {
+  //       const quizzes = tallyScores(data.rows);
+  //       // const scores = data.rows[1]
+  //       // console.log(data.rows)
+  //       // console.log(tallyScores(data.rows));
+  //       db.query(`select max(attempts_id), attempts.*, attempt_scores.correct, questionsAndAnswer_id
+  //       from attempt_scores
+  //       join attempts on attempts_id = attempts.id
+  //       where user_id = $1
+  //       group by attempts.id, attempt_scores.correct, questionsAndAnswer_id
+  //       order by max(attempts_id) desc
+  //       limit 5;
+  //       `, [req.session.userId])
+  //       .then(data => {
+  //         const score = calcScore(data.rows)
+  //         // console.log(score)
+  //         db.query(`select count(all_attempts) as all_attempts from (select distinct max(attempts_id) as all_attempts
+  //         from attempt_scores
+  //         join attempts on attempts_id = attempts.id
+  //         where user_id = $1
+  //         group by attempts.id, attempt_scores.correct, questionsAndAnswer_id
+  //         order by max(attempts_id) desc) as result
+  //         ;`, [req.session.userId])
+  //         .then(data => {
+  //           all_attempts = data.rows[0].all_attempts;
+  //           console.log(all_attempts)
+  //           res.render("home", { quizzes, user: req.session.userId, score, loggedInUser: req.session.userName, });
+  //         })
+  //       })
+
+  //     })
+  //     .catch(err => {
+  //       res
+  //         .status(500)
+  //         .json({ error: err.message });
+  //     });
+  // });
 
   router.get("/quizzes/new", (req, res) => {
     res.render("createQuiz");
@@ -92,10 +174,6 @@ module.exports = (db) => {
 };
 
 
-
-
-
-
 // id |   title   | correct | count
 // ----+-----------+---------+-------
 //   1 | BEST BUGS | f       |     1
@@ -103,9 +181,6 @@ module.exports = (db) => {
 //   1 | BEST BUGS | t       |     4
 //   2 | Socks     | t       |     4
 // (4 rows)
-
-
-
 
 // select quizzes.id, quizzes.title, correct, count(questionsAndAnswer.question)
 // from attempt_scores
