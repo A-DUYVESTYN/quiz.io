@@ -1,7 +1,7 @@
 Quiz.io
 =========
 
-Quiz.io is a little quiz app that lets logged in users to create quizzes and share them between friends.
+Quiz.io is a quiz app that lets logged in users to create quizzes and share thei quizzes and results between friends.
 
 ## Project Setup
 This project was built using the follwonig technologies: JavaScript, EJS, Express Server, PostgreSQL, Bcrypt, Cookie-Session, Sass, Boootstrap.
